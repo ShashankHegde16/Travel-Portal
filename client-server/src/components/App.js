@@ -4,6 +4,7 @@ import Header from './Header';
 import Main from './products/Main';
 import history from '../history';
 import Geo from './Geo/Geo';
+import Dashboard from './Charts/Dashboard';
 
 const App = () => {
 
@@ -12,12 +13,12 @@ const App = () => {
             <Router history={history}>
                 <Header />
                 <Switch>
-                    <div>
+                    <React.Fragment>
                         <Route path='/' exact component={Main}></Route>
                         <Route path='/geo' exact component={Geo}></Route>
-                    </div>
+                        <Route path='/graph' exact component={Dashboard}></Route>
+                    </React.Fragment>
                 </Switch>
-
             </Router>
         </div>
     )

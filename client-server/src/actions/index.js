@@ -14,6 +14,7 @@ export const getProducts = () => async dispatch => {
 export const getCoordinates = () => async dispatch => {
     const response = await axios.get('/api/coordinates');
     dispatch({ type: 'LAT_LNG', payload: response.data });
+
 }
 
 export const getAggregatedAmt = (key, type) => async dispatch => {
@@ -26,5 +27,12 @@ export const getAggregatedAmt = (key, type) => async dispatch => {
 export const getMinMaxLatLng = () => async dispatch => {
     const response = await axios.get('/api/latlng');
     dispatch({ type: 'MAX_LT_LNG', payload: response.data });
+}
+
+export const getChartData = (key) => async dispatch => {
+    const response = await axios.get('/api/plot', {
+        params: { key }
+    });
+    dispatch({ type: 'GET_PLOTS', payload: response.data });
 }
 

@@ -111,5 +111,20 @@ module.exports = (app) => {
         } catch (e) {
             res.status(422).send('Error in db connection!')
         }
+    });
+
+    app.get('/api/plot', async (req, res) => {
+        const { key } = req.query;
+        const query = {
+
+            $group: {
+                _id: { $substr: ['$created_at', 8, 2] },
+                amount: { $sum: '$' + key }
+
+            }
+        }
+        let response = await Transaction.aggregate([query]);
+        res.send({ [key]: response, plot: key });
+
     })
 }
