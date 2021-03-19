@@ -22,6 +22,16 @@ require('./routes/location')(app);
 require('./routes/plots')(app);
 
 
+if (process.env.NODE_ENV == 'production') {
+
+    app.use(express.static('client-server/build'));
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client-server', 'build', 'index.html'));
+    })
+
+
+}
 
 app.listen(PORT, () => {
     console.log('Server Started on Port ' + PORT);
