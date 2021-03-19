@@ -13,7 +13,7 @@ const App = () => {
         <div>
             <Router history={history}>
                 <Header />
-                <div style={{ marginTop: "7em" }}>
+                <div style={{ paddingTop: "6.5rem", backgroundColor: "#efefef", height: "100vh" }}>
                     <Switch >
                         <React.Fragment>
                             <Route path='/' exact component={Main}></Route>

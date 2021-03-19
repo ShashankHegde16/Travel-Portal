@@ -28,7 +28,7 @@ class BubbleMap extends Component {
                     return (
                         <CircleMarker
                             center={[Number(cords.lat), Number(cords.lng)]}
-                            radius={20 * Math.log((cords["amount"] || 100000) / 1000000)}
+                            radius={20 * Math.log((cords["amount"] || 100000) / 10000000)}
                             key={index}
                             fillOpacity={0.5}
                             stroke={false} >

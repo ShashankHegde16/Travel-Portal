@@ -81,6 +81,15 @@ class TravelList extends Component {
         this.props.pageSetter(prevIndex);
     }
 
+    handleDisable() {
+        const { currentPage, count } = this.props;
+        const pages = Math.ceil(count / 10);
+        if (currentPage === pages || currentPage + 3 === pages || count == 0)
+            return true;
+        return false
+
+    }
+
     render() {
         const pager = this.getPageNumbers(this.props.count, this.state.index);
 
@@ -135,7 +144,7 @@ class TravelList extends Component {
                                 < Menu.Item as='a'
                                     icon
                                     onClick={(e) => this.handleNextPage()}
-                                    disabled={this.state.index * 3 == Math.ceil(this.props.count / 10) || this.props.count == 0}>
+                                    disabled={this.handleDisable()}>
                                     <Icon name='chevron right' />
                                 </Menu.Item>
                             </Menu>
