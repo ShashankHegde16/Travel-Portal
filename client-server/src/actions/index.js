@@ -1,7 +1,7 @@
 import axios from 'axios';
-export const getTransactions = (page, limit, sortBy, direction, searchTerm) => async (dispatch) => {
+export const getTransactions = (obj) => async (dispatch) => {
     const response = await axios.get('/api/list', {
-        params: { page, limit, sortBy, direction, searchTerm }
+        params: obj
     });
     dispatch({ type: 'FETCH_TRANS', payload: response.data })
 }
@@ -34,5 +34,9 @@ export const getChartData = (key) => async dispatch => {
         params: { key }
     });
     dispatch({ type: 'GET_PLOTS', payload: response.data });
+}
+
+export const deleteChartData = (data) => {
+    return ({ type: 'DELETE_PLOTS', payload: data });
 }
 

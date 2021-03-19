@@ -1,62 +1,117 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Container, Grid } from 'semantic-ui-react';
 import { getTransactions, getProducts } from '../../actions';
-import DropDown from './Dropdowns';
+import Select from '../Dropdowns';
+import { sortOptions, priceRange, booking } from '../../config/options';
 import TravelList from './TravelList';
-import Paginator from './Paginator';
+
 
 
 const Main = (props) => {
-    const [sortBy, setSortOption] = useState('destination');
-    const [product_title, setProducts] = useState('Hong Kong Airport Express Train Tickets');
-    const [price, setPrice] = useState('500');
+    const [sortBy, setSortOption] = useState('price');
+    const [product_title, setProducts] = useState('');
+    const [price, setPrice] = useState('');
+    const [total_booking_count, setBooking] = useState('');
+
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
 
-    const handleOptionChange = (event, key) => {
-        switch (key) {
-            case 'sort':
-                setSortOption(event.target.value);
-                break;
-            case 'product':
-                setProducts(event.target.value);
-                break;
-            default:
-                setPrice(event.target.value);
-        }
 
-    };
 
     function handlePageChange(page) {
         setPage(page);
     }
 
+    function prepareReqObj() {
+        return {
+            limit,
+            page,
+            sortBy,
+            direction: -1,
+            searchBy: product_title,
+            price,
+            bookings: total_booking_count
+        }
+    }
 
     useEffect(() => {
+
         props.getProducts();
     }, []);
 
 
     useEffect(() => {
-        props.getTransactions(page, limit, sortBy, -1, product_title);
-    }, [sortBy, product_title, price, page, limit]);
+        const request = prepareReqObj();
+        props.getTransactions(request);
+    }, [sortBy, product_title, price, page, limit, total_booking_count]);
 
-
+    function handleReset() {
+        setProducts('');
+        setPrice('');
+        setBooking('')
+    }
 
     return (
-        <div className="container" style={{ marginTop: "1em" }}>
-            <DropDown
-                sortBy={sortBy}
-                product_title={product_title}
-                price={price}
-                handleChange={handleOptionChange} />
-            <hr></hr>
-            <TravelList />
-            <Paginator page={page} pageSetter={handlePageChange} />
-        </div>
-    )
+        <Container>
+            <Grid container verticalAlign textAlign >
+                <Grid.Row>
+                    <Grid.Column width={8}>
+                        <Select
+                            options={sortOptions}
+                            value={sortBy}
+                            color={"green"}
+                            label={"Select Sort Choice"}
+                            handleChange={(e, v) => setSortOption(v.value)}
+                            multiple={false} />
 
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                        <Select
+                            options={props.products}
+                            value={product_title}
+                            color={"orange"}
+                            label={"Select Product Title"}
+                            handleChange={(e, v) => { setProducts(v.value) }}
+                            multiple={false}>
+                        </Select>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={8}>
+                        <Select
+                            options={priceRange}
+                            value={price}
+                            color={"teal"}
+                            label={"Starting Price From "}
+                            handleChange={(e, v) => { setPrice(v.value) }}
+                            multiple={false}>
+                        </Select>
+
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                        <Select
+                            options={booking}
+                            value={total_booking_count}
+                            color={"purple"}
+                            label={" Max Booking Count"}
+                            handleChange={(e, v) => { setBooking(v.value) }}
+                            multiple={false}>
+                        </Select>
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row >
+                    <Grid.Column width={16}>
+                        <TravelList page={page} pageSetter={handlePageChange} resetFilter={handleReset} currentPage={page} />
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        </Container>
+    );
+}
+function mapStatetoProps({ products }) {
+    return { products };
 }
 
-
-export default connect(null, { getTransactions, getProducts })(Main);
+export default connect(mapStatetoProps, { getTransactions, getProducts })(Main);

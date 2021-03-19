@@ -1,47 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getChartData } from '../../actions';
+import { Popup, Container, Grid, Icon, Divider } from 'semantic-ui-react';
+import { getChartData, deleteChartData } from '../../actions';
 import Plot from './Barchart';
-import Select from 'react-select';
-import Loader from '../loader'
-const opt = [
-    {
-        'label': 'Price',
-        'value': 'price'
+import { amountOptions } from '../../config/options';
+import Select from '../Dropdowns';
+
+
+const options = {
+    chart: {
+        id: "basic-bar"
     },
-    {
-        'label': 'Booking Count',
-        'value': 'total_booking_count'
+    xaxis: {
+        categories: []
     }
-];
+};
 
-
-const Dashboard = (props) => {
+const Dashboard = ({ plots, getChartData, deleteChartData }) => {
     const [plot, setPlot] = useState([]);
 
+    useEffect(() => {
+        if (plot && plot.length > 0) {
+            getChartData(plot[plot.length - 1]);
+        }
+        deleteChartData(plot);
+    }, [plot]);
 
 
+    function getXAxisData() {
+        console.log(plots)
+        if (plots && Object.keys(plots).length > 0 && plot.length > 0) {
+            const [key] = plot;
+            options.xaxis.categories = plots[key].data;
+            return options;
+        }
+        return options;
+    }
 
+    function getSeriesData() {
+        let series = [];
+
+        if (plot && plot.length > 0) {
+            Object.keys(plots).forEach((keys, index) => {
+                const current = plots[keys];
+                series = [...series, current.series];
+            })
+        }
+        return series;
+    }
 
     return (
-        <div className="container" style={{ margin: '2em' }}>
-            <Loader> </Loader>
+        <Container>
+            <Grid>
+                <Grid.Row>
+                    <Grid.Column width={8}>
+                        <Select
+                            options={amountOptions}
+                            multiple={true}
+                            value={plot}
+                            color={"orange"}
+                            label={"Choose Plot Value"}
+                            handleChange={(e, v) => { setPlot(v.value) }} ></Select>
+                    </Grid.Column>
+                    <Grid.Column width={8} style={{ marginTop: "2em" }}>
+                        <Popup content='Select plot type of your choice to plot!' trigger={<Icon name="info circle" size="big"></Icon>} />
+                    </Grid.Column>
+                </Grid.Row>
+                <Divider></Divider>
+                <Grid.Row>
+                    <Grid.Column width={16} >
+                        <Plot data={getXAxisData()} series={getSeriesData()}></Plot>
 
-            <div className="row">
-                <div className="col-sm-3">
-                    <Select
-                        isMulti={true}
-                        value={plot}
-                        onChange={setPlot}
-                        options={opt}
-                    />
-                </div>
-            </div>
-            <hr></hr>
-            <Plot plot={plot}  ></Plot>
-        </div>);
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        </Container>
+    );
 
 }
+function mapStatetoProps(state) {
+    return {
+        plots: state.plots
+    }
+}
 
-
-export default connect(null, { getChartData })(Dashboard);
+export default connect(mapStatetoProps, { getChartData, deleteChartData })(Dashboard);

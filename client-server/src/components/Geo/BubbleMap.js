@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MapContainer, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
+import { Card } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import "leaflet/dist/leaflet.css";
 import { getCoordinates } from '../../actions';
@@ -27,12 +28,12 @@ class BubbleMap extends Component {
                     return (
                         <CircleMarker
                             center={[Number(cords.lat), Number(cords.lng)]}
-                            radius={20 * Math.log((cords["amount"] || 1000000) / 10000000)}
+                            radius={20 * Math.log((cords["amount"] || 100000) / 1000000)}
 
                             fillOpacity={0.5}
                             stroke={false} >
                             <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                                <span>{cords.amount ? ("Aggregated Value" + ": " + cords.amount) : ''}</span>
+                                <span>{cords.amount ? ("Aggregated Amount" + ": " + Number(cords.amount).toLocaleString()) : ''}</span>
                             </Tooltip>
                         </CircleMarker >);
                 }
@@ -54,10 +55,10 @@ class BubbleMap extends Component {
         const distanceLong = LatLng['minLatLng']['lng'] - LatLng['maxLatLng']['lng'];
         const bufferLong = distanceLong * 0.05;
         return (
-            <div className='container'>
+            <Card className="width-100" color="orange">
                 <MapContainer
-                    style={{ height: "400px", width: "100%" }}
-                    zoom={1}
+                    style={{ height: "100%", width: "100%" }}
+                    zoom={5}
                     center={[centerLat, centerLong]}
                     bounds={[
                         [LatLng['minLatLng']['lat'] - bufferLat, LatLng['minLatLng']['lng'] - bufferLong],
@@ -66,8 +67,9 @@ class BubbleMap extends Component {
                     <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     {this.renderBubble()}
                 </MapContainer>
+            </Card>
 
-            </div>
+
         );
     }
 }

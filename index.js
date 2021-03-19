@@ -18,6 +18,9 @@ mongoose.connect(`${config.MONGODB_URI}`, {
 app.use(bodyParser.json());
 
 require('./routes/transaction')(app);
+require('./routes/location')(app);
+require('./routes/plots')(app);
+
 
 
 app.listen(PORT, () => {

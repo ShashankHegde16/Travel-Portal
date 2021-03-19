@@ -1,23 +1,14 @@
 
 const initialState = {
-    showModal: false,
+    open: false,
     message: '',
 };
 export const modalReducer = (state = initialState, action) => {
-    console.log(action, 'here')
     switch (action.type) {
-        case 'OPEN_LOADER':
-            return {
-                ...state,
-                showModal: true,
-                message: action.message,
-            };
-        case 'CLOSE_LOADER':
-            return {
-                ...state,
-                showModal: false,
-                message: '',
-            };
+        case 'OPEN_MODAL':
+            return { open: true, dimmer: true }
+        case 'CLOSE_MODAL':
+            return { open: false }
         default:
             return {
                 ...state,
