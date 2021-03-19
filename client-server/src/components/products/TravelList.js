@@ -39,7 +39,7 @@ class TravelList extends Component {
                     <Table.Cell>{trans.product_title}</Table.Cell>
                     <Table.Cell>{trans.destination}</Table.Cell>
                     <Table.Cell>{new Date(trans.created_at).toDateString()}</Table.Cell>
-                    <Table.Cell>{Number(trans.price).toFixed(2).toLocaleString()}</Table.Cell>
+                    <Table.Cell>{Number(trans.price).toLocaleString()}</Table.Cell>
                     <Table.Cell>{Number(trans.total_booking_count).toLocaleString()}</Table.Cell>
                 </Table.Row>
             )

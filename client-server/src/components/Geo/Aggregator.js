@@ -27,7 +27,7 @@ const Aggregator = (props) => {
                         <Select
                             options={amountOptions}
                             value={key}
-                            color={"green"}
+                            color={"red"}
                             label={"Select Variant"}
                             handleChange={(e, v) => setKey(v.value)}
                             multiple={false} />
@@ -39,7 +39,7 @@ const Aggregator = (props) => {
                         <Select
                             options={aggrOptions}
                             value={type}
-                            color={"black"}
+                            color={"red"}
                             label={"Select Aggregator"}
                             handleChange={(e, v) => { setType(v.value) }}
                             multiple={false}>

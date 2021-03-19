@@ -9,7 +9,7 @@ import Select from '../Dropdowns';
 
 const options = {
     chart: {
-        id: "basic-bar"
+        id: "line"
     },
     xaxis: {
         categories: []
@@ -28,7 +28,6 @@ const Dashboard = ({ plots, getChartData, deleteChartData }) => {
 
 
     function getXAxisData() {
-        console.log(plots)
         if (plots && Object.keys(plots).length > 0 && plot.length > 0) {
             const [key] = plot;
             options.xaxis.categories = plots[key].data;
@@ -58,7 +57,7 @@ const Dashboard = ({ plots, getChartData, deleteChartData }) => {
                             options={amountOptions}
                             multiple={true}
                             value={plot}
-                            color={"orange"}
+                            color={"red"}
                             label={"Choose Plot Value"}
                             handleChange={(e, v) => { setPlot(v.value) }} ></Select>
                     </Grid.Column>

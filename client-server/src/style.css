@@ -2,8 +2,14 @@
   width: 100% !important;
 }
 
+
+
+.white-bg{
+  background-color: white !important;
+}
+
 .card{
-  height:calc(1000px - 400px);
+  height:calc(900px - 400px);
   width: 100%;
   background-color: white;
 }

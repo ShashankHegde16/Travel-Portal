@@ -23,13 +23,13 @@ class BubbleMap extends Component {
 
     renderBubble() {
         if (this.props.coordinates && this.props.coordinates.length > 0) {
-            return (this.props.coordinates.map((cords) => {
+            return (this.props.coordinates.map((cords, index) => {
                 if (cords.lat && cords.lng) {
                     return (
                         <CircleMarker
                             center={[Number(cords.lat), Number(cords.lng)]}
                             radius={20 * Math.log((cords["amount"] || 100000) / 1000000)}
-
+                            key={index}
                             fillOpacity={0.5}
                             stroke={false} >
                             <Tooltip direction="right" offset={[-8, -2]} opacity={1}>

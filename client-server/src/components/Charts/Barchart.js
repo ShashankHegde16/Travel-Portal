@@ -19,7 +19,7 @@ const Plot = ({ data, series }) => {
             <Chart
                 options={data}
                 series={series}
-                type="bar"
+                type="line"
                 width="100%"
                 height="100%"
             />

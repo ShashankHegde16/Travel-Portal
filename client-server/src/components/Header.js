@@ -18,8 +18,8 @@ class Header extends React.Component {
         return (
             <div>
                 <Menu inverted color={"black"} fixed="top">
-                    <Menu.Item>
-                        <Image size="mini" src={you} />
+                    <Menu.Item as={Link} to='/'>
+                        <Image size="mini" src={you} className="white-bg" />
                     </Menu.Item>
                     <Menu.Menu position="right">
                         {_.map(MenuItems, item => {

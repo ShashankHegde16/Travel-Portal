@@ -60,7 +60,7 @@ const Main = (props) => {
                         <Select
                             options={sortOptions}
                             value={sortBy}
-                            color={"green"}
+                            color={"red"}
                             label={"Select Sort Choice"}
                             handleChange={(e, v) => setSortOption(v.value)}
                             multiple={false} />
@@ -70,7 +70,7 @@ const Main = (props) => {
                         <Select
                             options={props.products}
                             value={product_title}
-                            color={"orange"}
+                            color={"red"}
                             label={"Select Product Title"}
                             handleChange={(e, v) => { setProducts(v.value) }}
                             multiple={false}>
@@ -82,7 +82,7 @@ const Main = (props) => {
                         <Select
                             options={priceRange}
                             value={price}
-                            color={"teal"}
+                            color={"red"}
                             label={"Starting Price From "}
                             handleChange={(e, v) => { setPrice(v.value) }}
                             multiple={false}>
@@ -93,7 +93,7 @@ const Main = (props) => {
                         <Select
                             options={booking}
                             value={total_booking_count}
-                            color={"purple"}
+                            color={"red"}
                             label={" Max Booking Count"}
                             handleChange={(e, v) => { setBooking(v.value) }}
                             multiple={false}>
@@ -103,7 +103,11 @@ const Main = (props) => {
 
                 <Grid.Row >
                     <Grid.Column width={16}>
-                        <TravelList page={page} pageSetter={handlePageChange} resetFilter={handleReset} currentPage={page} />
+                        <TravelList
+                            page={page}
+                            pageSetter={handlePageChange}
+                            resetFilter={handleReset}
+                            currentPage={page} />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
