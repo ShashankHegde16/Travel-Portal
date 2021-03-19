@@ -1,12 +1,11 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const config = require('./config/key');
 require('./models/transaction');
 const PORT = process.env.PORT || 5000;
 
 
-mongoose.connect(`${config.MONGODB_URI}`, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
