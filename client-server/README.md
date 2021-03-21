@@ -2,7 +2,7 @@
 
 - cd client-server and do npm install to install client-server dependencies
 - Run npm install in the root directory to install the server dependencies
-- `npm run start` to start the client application
+- `npm run client` to start the client application
 - `npm run start-dev` to start the server
   
 
