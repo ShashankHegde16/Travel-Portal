@@ -13,6 +13,7 @@ const Select = ({ options, value, multiple, handleChange, label, color }) => {
             <Dropdown
                 placeholder={label}
                 onChange={handleChange}
+                closeOnChange
                 fluid
                 multiple={multiple}
                 selection

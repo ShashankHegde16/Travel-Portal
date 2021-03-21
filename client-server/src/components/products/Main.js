@@ -60,10 +60,11 @@ const Main = (props) => {
                         <Select
                             options={sortOptions}
                             value={sortBy}
+
                             color={"red"}
                             label={"Select Sort Choice"}
                             handleChange={(e, v) => setSortOption(v.value)}
-                            multiple={false} />
+                        />
 
                     </Grid.Column>
                     <Grid.Column width={8}>
@@ -71,9 +72,10 @@ const Main = (props) => {
                             options={props.products}
                             value={product_title}
                             color={"red"}
+
                             label={"Select Product Title"}
                             handleChange={(e, v) => { setProducts(v.value) }}
-                            multiple={false}>
+                        >
                         </Select>
                     </Grid.Column>
                 </Grid.Row>
@@ -85,7 +87,7 @@ const Main = (props) => {
                             color={"red"}
                             label={"Starting Price From "}
                             handleChange={(e, v) => { setPrice(v.value) }}
-                            multiple={false}>
+                        >
                         </Select>
 
                     </Grid.Column>
@@ -96,7 +98,7 @@ const Main = (props) => {
                             color={"red"}
                             label={" Max Booking Count"}
                             handleChange={(e, v) => { setBooking(v.value) }}
-                            multiple={false}>
+                        >
                         </Select>
                     </Grid.Column>
                 </Grid.Row>
